@@ -1,0 +1,57 @@
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>110</x><y>50</y><w>230</w><h>190</h></coordinates><panel_attributes>&lt;&lt;Registrazione&gt;&gt;
+--
+#nome: string
+#password: string
++email: string
+
+--
+#Salva-utente(nome: string, pass: string,
+email: string);
+#Login(nome: string, pass: string );
+
+
+
+
+
+
+
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>530</x><y>330</y><w>210</w><h>190</h></coordinates><panel_attributes>&lt;&lt;Tecnico&gt;&gt;
+--
+#Nome_tecnico: string
+
+--
+#Modifica_ordini(IdComp: int);
+#Costruzione_pc(NomeTec: string);</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>120</x><y>290</y><w>210</w><h>190</h></coordinates><panel_attributes>&lt;&lt;Creare il pc&gt;&gt;
+--
++id_ordine: int
+
+--
+#Ragruppa_componenti(tipo: string);
+#Registrazione_scelte();
+#Crea-ordine();
+#Crea_contratto();
+#Spedisci_email(email: string);
+#Annulla-ordine(id: int);
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>110</x><y>540</y><w>210</w><h>190</h></coordinates><panel_attributes>&lt;&lt;Pagamento&gt;&gt;
+--
+-id_carta: int;
+-prezzo: int
+
+--
+#Conferma_pagamento(email: string);
+#Pagare(id_carta: int);
+#Paga_penale(id_carta: int)
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>520</x><y>50</y><w>220</w><h>190</h></coordinates><panel_attributes>&lt;&lt;Segreteria&gt;&gt;
+--
+
+--
+#Modifica_Comp(campo: string,
+ modifica: string);
+#Aggiungi_Comp(id: int, nome: string,
+ tipo: string);
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>470</y><w>30</w><h>90</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>310</x><y>440</y><w>240</w><h>130</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>220;10;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>320</x><y>210</y><w>220</w><h>130</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>200;10;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>230</y><w>30</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element></diagram>
