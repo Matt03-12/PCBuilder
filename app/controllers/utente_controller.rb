@@ -3,7 +3,7 @@ class UtenteController < ApplicationController
   end
   def login
   end
-  def build
+  def Build
   end
   def selling
   end
