@@ -29,19 +29,180 @@
   </fieldset>
   <fieldset style=" margin: auto; text-align: center;">
 
+    <table>
+      <% require 'sqlite3'
+         db = SQLite3::Database.open('Data.db')
+         db.results_as_hash = true
+         $d = db.execute("SELECT * FROM Componenti WHERE Tipo='Scheda video'; ") %>
+      <%  (0..$d.length-1).each do |a| %>
+        <tr>
+          <td><%= $d[a]["Nome"] -%></td>
+          <td><%= $d[a]["Descrizione"] -%></td>
+          <td><%= $d[a]["Prezzo"] -%></td>
+        </tr>
+      <% end %>
+    </table>
+    <table>
+      <% require 'sqlite3'
+         db = SQLite3::Database.open('Data.db')
+         db.results_as_hash = true
+         $d = db.execute("SELECT * FROM Componenti WHERE Tipo='Processore'; ") %>
+      <%  (0..$d.length-1).each do |a| %>
+        <tr>
+          <td><%= $d[a]["Nome"] -%></td>
+          <td><%= $d[a]["Descrizione"] -%></td>
+          <td><%= $d[a]["Prezzo"] -%></td>
+        </tr>
+      <% end %>
+    </table>
+    <table>
+      <% require 'sqlite3'
+         db = SQLite3::Database.open('Data.db')
+         db.results_as_hash = true
+         $d = db.execute("SELECT * FROM Componenti WHERE Tipo='Scheda madre'; ") %>
+      <%  (0..$d.length-1).each do |a| %>
+        <tr>
+          <td><%= $d[a]["Nome"] -%></td>
+          <td><%= $d[a]["Descrizione"] -%></td>
+          <td><%= $d[a]["Prezzo"] -%></td>
+        </tr>
+      <% end %>
+    </table>
+    <table>
+      <% require 'sqlite3'
+         db = SQLite3::Database.open('Data.db')
+         db.results_as_hash = true
+         $d = db.execute("SELECT * FROM Componenti WHERE Tipo='Ram'; ") %>
+      <%  (0..$d.length-1).each do |a| %>
+        <tr>
+          <td><%= $d[a]["Nome"] -%></td>
+          <td><%= $d[a]["Descrizione"] -%></td>
+          <td><%= $d[a]["Prezzo"] -%></td>
+        </tr>
+      <% end %>
+    </table>
+    <table>
+      <% require 'sqlite3'
+         db = SQLite3::Database.open('Data.db')
+         db.results_as_hash = true
+         $d = db.execute("SELECT * FROM Componenti WHERE Tipo='Hdd'; ") %>
+      <%  (0..$d.length-1).each do |a| %>
+        <tr>
+          <td><%= $d[a]["Nome"] -%></td>
+          <td><%= $d[a]["Descrizione"] -%></td>
+          <td><%= $d[a]["Prezzo"] -%></td>
+        </tr>
+      <% end %>
+    </table>
+    <table>
+      <% require 'sqlite3'
+         db = SQLite3::Database.open('Data.db')
+         db.results_as_hash = true
+         $d = db.execute("SELECT * FROM Componenti WHERE Tipo='SSD'; ") %>
+      <%  (0..$d.length-1).each do |a| %>
+        <tr>
+          <td><%= $d[a]["Nome"] -%></td>
+          <td><%= $d[a]["Descrizione"] -%></td>
+          <td><%= $d[a]["Prezzo"] -%></td>
+        </tr>
+      <% end %>
+    </table>
 
-  <%=
-    require 'sqlite3'
-    db = SQLite3::Database.open('Data.db')
-    db.results_as_hash = true
-    riga = db.execute("SELECT * FROM Login")
-    puts("aa")
-    puts(riga);
-      puts("#{riga[0]["Nome"]}")
 
-  %>
 
+
+    <form method='GET' action=''>
+      <label for="name">Username:</label>
+      <input type="text" id="name" name="name"><br>
+      <label for="pass">Password:</label>
+      <input type="password" id="pass" name="pass"><br>
+      <button name="log" type=submit >Login</button>
+
+
+      <%=
+
+        $b= request.original_url
+        require 'cgi'
+        $url = CGI.parse($b)
+
+        $nome=$url["http://127.0.0.1:3000/utente/index?name"]
+        $pass=$url["pass"]
+        $email=$url["email"]
+
+        if !$nome.empty? and !$pass.empty?
+
+          require 'sqlite3'
+          db = SQLite3::Database.open('Data.db')
+          db.results_as_hash = true
+          $riga = db.execute("SELECT * FROM Login")
+
+          (0..$riga.length() - 1).each { |a|
+            if riga[a]["Nome"].eql? $nome.first and riga[a]["Password"].eql? $pass.first
+              concat "login riuscito"
+              break
+            end
+          }
+
+        end
+
+
+
+      %>
+    </form>
+      <form method='GET' action=''>
+        <label for="name">Username:</label>
+        <input type="text" id="name" name="name"><br>
+        <label for="pass">Password:</label>
+        <input type="password" id="pass" name="pass"><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br>
+        <button name="log" type=submit  value="yes">Login</button>
+
+
+        <%=
+
+          $b= request.original_url
+          require 'cgi'
+          $url = CGI.parse($b)
+
+          $nome=$url["http://127.0.0.1:3000/utente/index?name"]
+          $pass=$url["pass"]
+          $email=$url["email"]
+          $log=$url["log"]
+          $nome=$nome.first
+          $pass=$pass.first
+          $email=$email.first
+
+
+          if $log.first=="yes"
+
+            require 'sqlite3'
+            db = SQLite3::Database.open('Data.db')
+            db.results_as_hash = true
+
+            $riga = db.execute("INSERT INTO Login (Nome, Password, Email)
+VALUES ('#$nome', '#$pass', '#$email')")
+
+            " "
+
+
+
+
+          end
+
+
+
+
+        %>
+
+
+      </form>
     </fieldset>
+
+
+
+
+
 
 
   <fieldset style="background-color:#000000; height:10%; margin: auto; text-align: center; width: 100%; position: fixed; bottom: 0; overflow: hidden;">
