@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'sito/Home'
+  get 'sito/Login'
+  get 'sito/Registrazione'
+  get 'sito/Componenti'
+  get 'sito/Carrello'
+  get 'sito/Home'
+  get 'sito/carrello'
+  get 'sito/componenti'
   get 'azienda/tecnico'
   get 'utente/index'
   get 'utente/login'
