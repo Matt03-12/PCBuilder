@@ -116,7 +116,7 @@ body{
 
 .loginbox{
     width: 300px;
-    height: 400px;
+    height: 500px;
     background: #2C2F2D;
     background-color: #2C2F2D;
     color: #fff;
@@ -145,12 +145,12 @@ h1{
     width: 75%;
     margin-bottom: 10px;
     background: #1A5635;
-    color: #1A5635;
+    color: #ffffff;
     border-radius: 40px;
     border: 0px;
 }
 
-.loginbox input[type="text"], input[type="password"]
+.loginbox input[type="text"], input[type="password"], input[type="email"]
 {
     border: none;
     color: #ffffff;

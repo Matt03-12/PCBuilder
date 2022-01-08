@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Pc Builder</title>
+  <title>Login</title>
   <link rel="stylesheet" href="login.css">
   <title>barra</title>
 </head>
@@ -8,24 +8,17 @@
 <header>
   <div class="container">
     <h1 class="logo"></h1>
+    <img style="width:6%; height:5%;  float:left;  padding-top: 30px; padding-right:10px; padding-bottom: 10px; padding-left: 10px;"  src="/logo.jpg"/>
 
-    <img src="logo/logo.png" alt="logo" class="logo">
     <nav>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">componenti</a></li>
-
-        <li><a href="#">assistenza</a></li>
-        <li><a href="#">carrello</a></li>
-
-        <li><a href="#">user</a></li>
-
+        <li><a href="/sito/Home">Home</a></li>
+        <li><a href="/sito/Login">user</a></li>
       </ul>
     </nav>
   </div>
 </header>
 
-<title>login</title>
 <link rel="stylesheet" type="text/css" href="login.css">
 
 <body>
@@ -37,15 +30,15 @@
   <h1>login</h1>
   <form method='GET' action=''  >
     <p>Username</p>
-    <input type="text"  placeholder="Enter Username" id="nome" name="nome">
+    <input type="text" placeholder="Enter Username" id="nome" name="nome">
     <p>Password</p>
-    <input type="password"  placeholder="Enter Password" id="pass" name="pass">
-    <input type="submit" name="log" id="log" value="Login">
-    <a href="#">password dimenticata</a><br>
-    <a href="#">sign in?</a>
+    <input type="password" placeholder="Enter Password" id="pass" name="pass">
+    <input type="submit"  name="log" id="log" value="Login">
+    <br>
+    <a href="/sito/Registrazione"  style="font-family: 'Work Sans', sans-serif; color:#36B7E8FF; font-weight: 300; ">Sign in?</a>
   </form>
 </div>
-<%=
+<%
 
   $b= request.original_url
   require 'cgi'
@@ -71,6 +64,22 @@
   end
 %>
 
+
+
+
+
+
+
+<% for n in  0..23 %>
+  <br>
+<% end %>
+
+<footer style="background-color:#131313; height:10%; margin: auto; text-align: center; width: 100%; ">
+<br>
+
+<p style="alignment: center; color:#F7F7F7  ">Authors : Matteo Gramazio , Luca Di napoli , Manuel Michelini<p>
+  <br>
+  </footer>
+
 </body>
-</head>
 </html>

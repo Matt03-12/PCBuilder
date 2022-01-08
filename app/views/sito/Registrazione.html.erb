@@ -1,78 +1,87 @@
-<html style="background-color:#cccccc;">
+<html>
 <head>
-  <title>Pc Builder</title>
+  <title>Register</title>
+  <link rel="stylesheet" href="reg.css">
+  <title>barra</title>
 </head>
+
+<header>
+  <div class="container">
+    <h1 class="logo"></h1>
+    <img style="width:6%; height:5%;  float:left;  padding-top: 30px; padding-right:10px; padding-bottom: 10px; padding-left: 10px;"  src="/logo.jpg"/>
+
+    <nav>
+      <ul>
+        <li><a href="/sito/Home">Home</a></li>
+        <li><a href="/sito/Login">user</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<link rel="stylesheet" type="text/css" href="reg.css">
+
 <body>
-<fieldset style="background-color:#000000; width:98%; height:40%; margin: auto; text-align: center;">
-  <img style="width:6%; height:5%;  float:left;" src="/logo.jpg"/>
-  <a href="/sito/Login">
-    <button style="width:3%; height:15%;  float:right; background-color:#43f034; position:relative; top: 20px; " name="login"><img style="width:100%; height:100%; float:start;" src="/utente.png" />
-    </button>
-  </a>
-  <a href="/sito/Home">
-    <p style="width:10%; height:15%;  float:right; background-color:#000000; font-size:20px; color: #F7F7F7; position:relative; right: 30px; top: 8px; " name="home">Home
-    </p>
-  </a>
-</fieldset>
 
+<div class="verde">
+</div>
 
-<form method='GET' action=''>
-  <label for="name">Username:</label>
-  <input type="text" id="name" name="name"><br>
-  <label for="pass">Password:</label>
-  <input type="password" id="pass" name="pass"><br>
-  <label for="email">Email:</label>
-  <input type="email" id="email" name="email"><br>
-  <button name="log" type=submit  value="yes">Login</button>
+<div class="loginbox">
+  <h1>Register</h1>
+  <form method='GET' action=''  >
+    <p>Username</p>
+    <input type="text" placeholder="Enter Username" id="nome" name="nome">
+    <p>Password</p>
+    <input type="password" placeholder="Enter Password" id="pass" name="pass">
+    <p> Email</p>
+    <input type="email" placeholder="Enter Email" id="email" name="email">
+    <input type="submit"  name="log" id="log" value="Login">
+    <br>
+    <a href="/sito/Registrazione"  style="font-family: 'Work Sans', sans-serif; color:#36B7E8FF; font-weight: 300; ">Sign in?</a>
+  </form>
+</div>
+<%
 
+  $b= request.original_url
+  require 'cgi'
+  $url = CGI.parse($b)
 
-  <%
+  $nome=$url["http://127.0.0.1:3000/sito/Login?nome"]
+  $pass=$url["pass"]
 
-    $b= request.original_url
-    require 'cgi'
-    $url = CGI.parse($b)
+  if !$nome.empty? and !$pass.empty?
 
-    $nome=$url["http://127.0.0.1:3000/sito/Registrazione?name"]
-    $pass=$url["pass"]
-    $email=$url["email"]
-    $log=$url["log"]
-    $nome=$nome.first
-    $pass=$pass.first
-    $email=$email.first
+    require 'sqlite3'
+    db = SQLite3::Database.open('Data.db')
+    db.results_as_hash = true
+    $riga = db.execute("SELECT * FROM Login")
 
+    (0..$riga.length - 1).each { |a|
+      if $riga[a]["Nome"].eql? $nome.first and $riga[a]["Password"].eql? $pass.first
+        concat "login riuscito"
+        break
+      end
+    }
 
-    if $log.first=="yes"
-
-      require 'sqlite3'
-      db = SQLite3::Database.open('Data.db')
-      db.results_as_hash = true
-
-      $riga = db.execute("INSERT INTO Login (Nome, Password, Email)
-VALUES ('#$nome', '#$pass', '#$email')")
-
-
-    end
-
-  %>
+  end
+%>
 
 
 
-</form>
 
 
 
-<% $x=1 %>
-<% if $x==0 %>
-<button name="log" type=submit  value="yes">si</button>
 
+<% for n in  0..23 %>
+  <br>
 <% end %>
 
-
-<footer style="background-color:#000000; height:10%; margin: auto; text-align: center; width: 99%;  ">
+<footer style="background-color:#131313; height:10%; margin: auto; text-align: center; width: 100%; ">
   <br>
 
   <p style="alignment: center; color:#F7F7F7  ">Authors : Matteo Gramazio , Luca Di napoli , Manuel Michelini<p>
   <br>
 </footer>
+
 </body>
 </html>
