@@ -2,9 +2,8 @@
 <head>
   <title>Login</title>
   <link rel="stylesheet" href="login.css">
-  <title>barra</title>
 </head>
-
+<body>
 <header>
   <div class="container">
     <h1 class="logo"></h1>
@@ -19,10 +18,6 @@
   </div>
 </header>
 
-<link rel="stylesheet" type="text/css" href="login.css">
-
-<body>
-
 <div class="verde">
 </div>
 
@@ -30,7 +25,7 @@
   <h1>login</h1>
   <form method='GET' action=''  >
     <p>Username</p>
-    <input type="text" placeholder="Enter Username" id="nome" name="nome">
+    <input type="text" placeholder="Enter Username" id="name" name="name">
     <p>Password</p>
     <input type="password" placeholder="Enter Password" id="pass" name="pass">
     <input type="submit"  name="log" id="log" value="Login">
@@ -44,7 +39,7 @@
   require 'cgi'
   $url = CGI.parse($b)
 
-  $nome=$url["http://127.0.0.1:3000/sito/Login?nome"]
+  $nome=$url["http://127.0.0.1:3000/sito/Login?name"]
   $pass=$url["pass"]
 
   if !$nome.empty? and !$pass.empty?
@@ -63,23 +58,5 @@
 
   end
 %>
-
-
-
-
-
-
-
-<% for n in  0..23 %>
-  <br>
-<% end %>
-
-<footer style="background-color:#131313; height:10%; margin: auto; text-align: center; width: 100%; ">
-<br>
-
-<p style="alignment: center; color:#F7F7F7  ">Authors : Matteo Gramazio , Luca Di napoli , Manuel Michelini<p>
-  <br>
-  </footer>
-
 </body>
 </html>
