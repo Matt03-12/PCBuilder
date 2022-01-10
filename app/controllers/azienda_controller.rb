@@ -1,6 +1,19 @@
 class AziendaController < ApplicationController
-  def tecnico
+  def Segretaria
   end
-  def segreteria
+
+  def mod1
+  end
+
+  def mod2
+  end
+
+  def create
+  end
+
+  def Tecnico
+  end
+
+  def tecmod
   end
 end

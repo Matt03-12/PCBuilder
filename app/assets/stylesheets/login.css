@@ -32,8 +32,8 @@ nav {
 }
 
 nav ul {
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
     list-style: none;
 }
 
@@ -42,7 +42,6 @@ nav li {
     margin-left: 20px;
     padding-top: 20px;
     padding-bottom: 0px;
-
     position: relative;
 }
 
@@ -77,6 +76,7 @@ nav a:hover::before {
     float: left;
     width: 30px;
     height: 30px;
+    margin-top: 7px;
     padding-top: 30px;
     padding-right:10px;
     padding-bottom: 10px;
@@ -131,13 +131,14 @@ body{
 
 h1{
     padding-left: 15%;
-    font-size: 35px;
+    font-size: 25px;
+    margin-bottom: 25px ;
 }
 
 .loginbox p{
     padding-left: 15%;
     margin: 5%;
-    padding: 0px;
+    padding: 0;
     front-weight: bold;
 }
 
@@ -156,11 +157,19 @@ h1{
     color: #ffffff;
     background-color: #1A5635;
     border-radius: 40px;
-    border-bottom: 1px;
+    border-bottom: 5px;
     padding-left: 10%;
     height: 40px;
 }
 .loghinbox input[type="submit"]
+{
+    outline: none;
+    height: 40px;
+    color: #FFFFFF;
+    width: 75%;
+
+}
+.input[type="submit"]
 {
     outline: none;
     height: 40px;

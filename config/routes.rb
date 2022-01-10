@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'azienda/Segretaria'
+  get 'azienda/mod1'
+  get 'azienda/mod'
+  get 'azienda/2'
+  get 'azienda/create'
+  get 'azienda/Tecnico'
+  get 'azienda/tecmod'
   get 'sito/Home'
   get 'sito/Login'
   get 'sito/Registrazione'

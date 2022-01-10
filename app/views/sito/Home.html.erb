@@ -1,45 +1,124 @@
-<html>
+<html lang="it" xmlns="">
 <head>
-  <title>Login</title>
+  <title>Pc Builder</title>
   <link rel="stylesheet" href="home.css">
   <title>barra</title>
 </head>
-
+<body>
 <header>
   <div class="container">
     <h1 class="logo"></h1>
-    <img style="width:6%; height:5%;  float:left;  padding-top: 30px; padding-right:10px; padding-bottom: 10px; padding-left: 10px;"  src="/logo.jpg"/>
-
+    <img src="/logo.png" alt="logo" class="logo">
     <nav>
       <ul>
         <li><a href="/sito/Home">Home</a></li>
-        <li><a href="/sito/Login">user</a></li>
+        <li><a href="/sito/Registrazione">Sign in</a></li>
+        <li><a href="/sito/Login">Log in</a></li>
+        <li></li>
       </ul>
     </nav>
   </div>
 </header>
+<br>
 
-<link rel="stylesheet" type="text/css" href="home.css">
+<br>
+<br>
 
-<body>
+<%= $b= request.original_url
+require 'cgi'
+$url = CGI.parse($b)
+$nome=$url["http://127.0.0.1:3000/sito/Home?name"]
+   $pro=$url["Processore"]
+   $scv=$url["Scheda video"]
+   $ram=$url["Ram"]
+   $hdd=$url["Hdd"]
+   $ssd=$url["SSD"]
+   $scm=$url["Scheda madre"]
+
+
+$nome=$nome.first
+   $pro=$pro.first
+   $scv=$scv.first
+   $ram=$ram.first
+   $hdd=$hdd.first
+   $ssd=$ssd.first
+   $scm=$scm.first
+
+
+   if !$nome.blank? and !$pro.blank?  and !$scv.blank? and !$ram.blank? and !$hdd.blank? and !$ssd.blank? and !$scm.blank?
+
+   require 'sqlite3'
+   db = SQLite3::Database.open('Data.db')
+   db.results_as_hash = true
+
+  db.execute("INSERT INTO Ordini (Nome, Schedavideo, Processore, Schedamadre, Ram, hdd, SSD)
+VALUES ('#$nome', '#$scv', '#$pro', '#$scm', '#$ram', '#$hdd', '#$ssd')")
+
+   $riga = db.execute("SELECT * FROM Login")
+
+   (0..$riga.length - 1).each { |a|
+     if $riga[a]["Nome"].eql? $nome
+       $email=$riga[a]["Email"]
+       concat"#$email"
+    break
+          end
+          }
+
+end
 
 
 
+   %>
+<form method='GET' action=''>
+
+  <h1 style="text-align: center">Offerte imperdibili</h1>
+  <div class="wrapper">
+
+    <div class="casella">
+    </div>
+
+    <div class="One">&nbsp
+      <a href="https://www.youtube.com"><img src="/img.png" width="280" height="370" alt="HTML tutorial"></a>
+    </div>
+
+    <div class="Two">&nbsp
+      <img src="/img.png" alt="img" class="img" width="280" height="370">
+    </div>
+    <div class="Three">&nbsp
+      <img src="/img.png" alt="img" class="img" width="280" height="370">
+    </div>
+
+  </div>
+</form>
+</fieldset>
 
 
+<%
+
+  if !$nome.blank? %>
+  <div class="casella">
+  </div>
+  <div class="tasto1">
+    <form action="/sito/Componenti">
+      <input type="hidden" name="name" value="<%= $nome %>" >
+      <button type="submit" style=" background-color: #1A5635; color: #FFFFFF; font-size: 17px;">
+        Build your pc
+      </button>
+    </form>
+  </div>
+
+  <div class="tasto2">
+    <form action="/sito/Carrello" method="GET">
+      <input type="hidden" name="name"value="<%= $nome %>" >
+      <button type="submit" style=" background-color: #1A5635; color: #FFFFFF; font-size: 17px ">
+        <%= $nome %>'s orders
+      </button>
+    </form>
+  </div>
+
+<%  end %>
 
 
-
-<% for n in  0..23 %>
-  <br>
-<% end %>
-
-<footer style="background-color:#131313; height:10%; margin: auto; text-align: center; width: 100%; ">
-  <br>
-
-  <p style="alignment: center; color:#F7F7F7  ">Authors : Matteo Gramazio , Luca Di napoli , Manuel Michelini<p>
-  <br>
-</footer>
 
 </body>
 </html>

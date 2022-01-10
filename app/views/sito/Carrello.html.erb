@@ -1,41 +1,144 @@
+<html>
+<head>
+  <title>CARRELLO</title>
+  <link rel="stylesheet" href="cart.css">
+</head>
 <body>
-
-<div class="CartContainer">
-  <div class="Header">
-    <h3 class="Heading">Carrello</h3>
-    <h5 class="Action">Remove all</h5>
+<header>
+  <div class="container">
+    <h1 class="logo"></h1>
+    <img src="/logo.png" alt="logo" class="logo">
+    <nav>
+      <ul>
+        <li><a href="/sito/Home">Home</a></li>
+        <li><a href="/sito/Registrazione">Sign in</a></li>
+        <li><a href="/sito/Login">Log in</a></li>
+        <li></li>
+      </ul>
+    </nav>
   </div>
+</header>
+<h1 class="titolo">Conferma acquisti</h1>
 
-  <div class="Items">
-    <div class="image-box">
-      <img src="geforce_rtx_3060_ti_product_gallery_full_screen_3840_1_bl.jpg" style="height: 70px;"/>
-    </div>
-    <div class="ciao">
-      <p>Pezzo 1<p>
+<table style="width:80%">
+  <tr>
+    <th>Componenti</th>
+    <th>immagine</th>
+    <th> </th>
+    <th>prezzo</th>
+  </tr>
+  <%  $b= request.original_url
+      require 'cgi'
+      $url = CGI.parse($b)
+      $nome=$url["http://127.0.0.1:3000/sito/Carrello?name"]
+      $nome=$nome.first
+      $tot=0
+      require 'sqlite3'
+     db = SQLite3::Database.open('Data.db')
+     db.results_as_hash = true
+     $data = db.execute("SELECT * FROM Ordini WHERE Nome='#$nome';") %>
+  <%  (0..$data.length-1).each do |a| %>
+    <tr>
+      <td style="text-align: center"><%= $data[a]["Schedavideo"] -%></td>
+      <td ><center><img style=" widht:70px; height:50px" src="/<%=  %>"></center></td>
+      <td style="text-align: center"></td>
+      <td style="text-align: center"> <%
 
+        require 'sqlite3'
+        db = SQLite3::Database.open('Data.db')
+        db.results_as_hash = true
+        $a=$data[a]["Schedavideo"]
+        $prez = db.execute("SELECT * FROM Componenti WHERE Nome='#$a';") %>
+        <%=  $prez[a]["Prezzo"] -%> €</td>
+      <% $tot=$tot+$prez[a]["Prezzo"] %>
+    </tr>
+    <tr>
+      <td style="text-align: center"><%= $data[a]["Processore"] -%></td>
+      <td ><center><img style=" widht:70px; height:50px" src="/<%=  %>"></center></td>
+      <td style="text-align: center"></td>
+      <td style="text-align: center"> <%
 
-    </div>
-    <div class="counter">
-      <div class="btn">+</div>
-      <div class="count">1</div>
-      <div class="btn">-</div>
-    </div>
-    <div class="prices">
-      <div class="amount">€€€</div>
+        require 'sqlite3'
+        db = SQLite3::Database.open('Data.db')
+        db.results_as_hash = true
+        $a=$data[a]["Processore"]
+        $prez = db.execute("SELECT * FROM Componenti WHERE Nome='#$a';") %>
+        <%=  $prez[a]["Prezzo"] -%> €</td>
+      <% $tot=$tot+$prez[a]["Prezzo"] %>
+    </tr>
+    <tr>
+      <td style="text-align: center"><%= $data[a]["Schedamadre"] -%></td>
+      <td ><center><img style=" widht:70px; height:50px" src="/<%=  %>"></center></td>
+      <td style="text-align: center"></td>
+      <td style="text-align: center"> <%
 
-      <div class="remove"><u>Remove</u></div>
+        require 'sqlite3'
+        db = SQLite3::Database.open('Data.db')
+        db.results_as_hash = true
+        $a=$data[a]["Schedamadre"]
+        $prez = db.execute("SELECT * FROM Componenti WHERE Nome='#$a';") %>
+        <%=  $prez[a]["Prezzo"] -%> €</td>
+      <% $tot=$tot+$prez[a]["Prezzo"] %>
+    </tr>
+    <tr>
+      <td style="text-align: center"><%= $data[a]["Ram"] -%></td>
+      <td ><center><img style=" widht:70px; height:50px" src="/<%=  %>"></center></td>
+      <td style="text-align: center"></td>
+      <td style="text-align: center"> <%
+
+        require 'sqlite3'
+        db = SQLite3::Database.open('Data.db')
+        db.results_as_hash = true
+        $a=$data[a]["Ram"]
+        $prez = db.execute("SELECT * FROM Componenti WHERE Nome='#$a';") %>
+        <%=  $prez[a]["Prezzo"] -%> €</td>
+      <% $tot=$tot+$prez[a]["Prezzo"] %>
+    </tr>
+    <tr>
+      <td style="text-align: center"><%= $data[a]["Hdd"] -%></td>
+      <td ><center><img style=" widht:70px; height:50px" src="/<%=  %>"></center></td>
+      <td style="text-align: center"></td>
+      <td style="text-align: center"> <%
+
+        require 'sqlite3'
+        db = SQLite3::Database.open('Data.db')
+        db.results_as_hash = true
+        $a=$data[a]["Hdd"]
+        $prez = db.execute("SELECT * FROM Componenti WHERE Nome='#$a';") %>
+        <%=  $prez[a]["Prezzo"] -%> €</td>
+      <% $tot=$tot+$prez[a]["Prezzo"] %>
+    <tr>
+      <td style="text-align: center"><%= $data[a]["SSD"] -%></td>
+      <td ><center><img style=" widht:70px; height:50px" src="/<%=  %>"></center></td>
+      <td style="text-align: center"></td>
+      <td style="text-align: center"> <%
+
+        require 'sqlite3'
+        db = SQLite3::Database.open('Data.db')
+        db.results_as_hash = true
+        $a=$data[a]["SSD"]
+        $prez = db.execute("SELECT * FROM Componenti WHERE Nome='#$a';") %>
+        <%=  $prez[a]["Prezzo"] -%> €</td>
+      <% $tot=$tot+$prez[a]["Prezzo"] %>
+    </tr>
+    <tr>
+      <td style="text-align: center"></td>
+      <td style="text-align: center">Stato ordine</td>
+
+    </tr>
+  <% end %>
+
+</table>
+<hr>
+<div class="checkout">
+  <div class="total">
+    <div>
+      <div class="Subtotal">Totale</div>
+      <div class="items"> items</div>
     </div>
+    <div class="total-amount"><%= $tot %> €</div>
   </div>
-  <hr>
-  <div class="checkout">
-    <div class="total">
-      <div>
-        <div class="Subtotal">Totale</div>
-        <div class="items"> items</div>
-      </div>
-      <div class="total-amount"> €€€</div>
-    </div>
-    <button class="button">Checkout</button></div>
+  <button class="button">Checkout</button></div>
 </div>
 </body>
 </html>

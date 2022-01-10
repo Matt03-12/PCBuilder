@@ -7,22 +7,23 @@
 <header>
   <div class="container">
     <h1 class="logo"></h1>
-    <img style="width:6%; height:5%;  float:left;  padding-top: 30px; padding-right:10px; padding-bottom: 10px; padding-left: 10px;"  src="/logo.jpg"/>
-
+    <img src="/logo.png" alt="logo" class="logo">
     <nav>
       <ul>
         <li><a href="/sito/Home">Home</a></li>
-        <li><a href="/sito/Login">user</a></li>
+        <li><a href="/sito/Registrazione">Sign in</a></li>
+        <li><a href="/sito/Login">Log in</a></li>
+        <li></li>
       </ul>
     </nav>
   </div>
 </header>
 
+
 <div class="verde">
 </div>
-
 <div class="loginbox">
-  <h1>login</h1>
+  <h1>Login</h1>
   <form method='GET' action=''  >
     <p>Username</p>
     <input type="text" placeholder="Enter Username" id="name" name="name">
@@ -30,33 +31,49 @@
     <input type="password" placeholder="Enter Password" id="pass" name="pass">
     <input type="submit"  name="log" id="log" value="Login">
     <br>
+
+
     <a href="/sito/Registrazione"  style="font-family: 'Work Sans', sans-serif; color:#36B7E8FF; font-weight: 300; ">Sign in?</a>
+
+    <br>
+    <%
+
+      $b= request.original_url
+      require 'cgi'
+      $url = CGI.parse($b)
+
+      $nome=$url["http://127.0.0.1:3000/sito/Login?name"]
+      $pass=$url["pass"]
+
+
+
+      if !$nome.empty? and !$pass.empty?
+
+        $nome=$nome.first
+        $pass=$pass.first
+
+        require 'sqlite3'
+        db = SQLite3::Database.open('Data.db')
+        db.results_as_hash = true
+        $riga = db.execute("SELECT * FROM Login")
+
+        (0..$riga.length - 1).each { |a|
+          if $riga[a]["Nome"].eql? $nome and $riga[a]["Password"].eql? $pass
+    %>
+          <a href="http://127.0.0.1:3000/sito/Home?name=<%= $nome %>"  style="font-family: 'Work Sans', sans-serif; color:#36B7E8FF; font-weight: 300; ">I'm logged</a>
+        <%    break
+              end
+              }
+              end
+        %>
+
+
+
+
   </form>
 </div>
-<%
 
-  $b= request.original_url
-  require 'cgi'
-  $url = CGI.parse($b)
 
-  $nome=$url["http://127.0.0.1:3000/sito/Login?name"]
-  $pass=$url["pass"]
 
-  if !$nome.empty? and !$pass.empty?
-
-    require 'sqlite3'
-    db = SQLite3::Database.open('Data.db')
-    db.results_as_hash = true
-    $riga = db.execute("SELECT * FROM Login")
-
-    (0..$riga.length - 1).each { |a|
-      if $riga[a]["Nome"].eql? $nome.first and $riga[a]["Password"].eql? $pass.first
-        concat "login riuscito"
-        break
-      end
-    }
-
-  end
-%>
 </body>
 </html>

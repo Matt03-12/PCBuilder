@@ -1,0 +1,91 @@
+<html>
+<head>
+  <title>Ordini in arrivo</title>
+</head>
+<body style="background-color: #B9B9B9;">
+<center>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <fieldset style="width:70%;">
+
+    <legend><b>Componenti</b></legend>
+    <br>
+      <table width='60%' border='1px' >
+        <td>Nome</td>
+        <td>Tipo</td>
+        <td>Prezzo</td>
+    <% require 'sqlite3'
+      db = SQLite3::Database.open('Data.db')
+      db.results_as_hash = true
+      $d = db.execute("SELECT * FROM Componenti ORDER BY  ID ASC; ") %>
+    <%  (0..$d.length-1).each do |a| %>
+      <tr>
+        <td><%= $d[a]["Nome"] -%></td>
+        <td><%= $d[a]["Tipo"] -%></td>
+        <td><%= $d[a]["Prezzo"] -%></td>
+      </tr>
+    <% end %>
+    </table>
+    <br>
+    <br>
+    <br>
+    <form action="/azienda/Segretaria" method="GET">
+      <p>Nome </p>
+      <input type="text" name="Name"  > <br>
+      <p>Tipo </p>
+      <input type="text" name="Tipo"  ><br>
+      <p>Prezzo </p>
+      <input type="text" name="Prezzo"  ><br>
+      <br>
+      <button type="submit" name="create" style=" font-size: 17px" value="yes">
+        Register new element
+      </button>
+    </form>
+    <% $b= request.original_url
+    require 'cgi'
+    $url = CGI.parse($b)
+    $nome=$url["http://127.0.0.1:3000/azienda/Segretaria?Name"]
+    $a=$url["Tipo"]
+    $b=$url["Prezzo"]
+    $c=$url["create"]
+
+
+
+
+    $nome=$nome.first
+    $a=$a.first
+    $b=$b.first
+    $c=$c.first
+
+
+
+    if !$nome.blank? and !$a.blank?  and !$b.blank? and !$c.blank?
+
+    require 'sqlite3'
+    db = SQLite3::Database.open('Data.db')
+    db.results_as_hash = true
+
+    db.execute("INSERT INTO Componenti (Nome, Prezzo, Tipo)
+    VALUES ('#$nome', '#$a', '#$b')")
+
+    end
+
+    %>
+
+
+
+
+
+    </table>
+
+
+
+
+  </fieldset>
+  <br>
+</center>
+</body>
+</html>
