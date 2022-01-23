@@ -17,15 +17,22 @@
         <td>Nome</td>
         <td>Tipo</td>
         <td>Prezzo</td>
+        <td>Modifica</td>
     <% require 'sqlite3'
       db = SQLite3::Database.open('Data.db')
       db.results_as_hash = true
-      $d = db.execute("SELECT * FROM Componenti ORDER BY  ID ASC; ") %>
-    <%  (0..$d.length-1).each do |a| %>
+      $data = db.execute("SELECT * FROM Componenti ORDER BY  ID ASC; ") %>
+    <%  (0..$data.length-1).each do |a| %>
       <tr>
-        <td><%= $d[a]["Nome"] -%></td>
-        <td><%= $d[a]["Tipo"] -%></td>
-        <td><%= $d[a]["Prezzo"] -%></td>
+        <td><%= $data[a]["Nome"] -%></td>
+        <td><%= $data[a]["Tipo"] -%></td>
+        <td><%= $data[a]["Prezzo"] -%></td>
+        <td style="text-align: center">
+          <form action="/azienda/mod" method="GET">
+            <input type="hidden" name="Id" value="<%= $data[a]["Id"] -%>" >
+            <button type="submit" style=" background-color: #1A5635; color: #FFFFFF; font-size: 17px ">Fai modifiche</button>
+          </form>
+        </td>
       </tr>
     <% end %>
     </table>
@@ -44,7 +51,8 @@
         Register new element
       </button>
     </form>
-    <% $b= request.original_url
+    <%
+      $b= request.original_url
     require 'cgi'
     $url = CGI.parse($b)
     $nome=$url["http://127.0.0.1:3000/azienda/Segretaria?Name"]
@@ -74,10 +82,41 @@
     end
 
     %>
+    </table>
+
+  </fieldset>
 
 
 
 
+
+  <fieldset style="width:70%;">
+
+    <legend><b>Componenti</b></legend>
+    <br>
+    <table width='60%' border='1px' >
+      <td>Id</td>
+      <td>Tecnico</td>
+      <td>Acquirente</td>
+      <td>Id ordine</td>
+      <td>Stato</td>
+      <% require 'sqlite3'
+         db = SQLite3::Database.open('Data.db')
+         db.results_as_hash = true
+         $data = db.execute("SELECT * FROM Contratto  ORDER BY  ID ASC; ") %>
+      <%  (0..$data.length-1).each do |a| %>
+        <tr>
+          <td><%= $data[a]["Id"] -%></td>
+          <td><%= $data[a]["Tecnico"] -%></td>
+          <td><%= $data[a]["Acquirente"] -%></td>
+          <td><%= $data[a]["IDord"] -%></td>
+          <td><%= $data[a]["Stato"] -%></td>
+        </tr>
+      <% end %>
+    </table>
+    <br>
+    <br>
+    <br>
 
     </table>
 
@@ -85,6 +124,8 @@
 
 
   </fieldset>
+
+
   <br>
 </center>
 </body>

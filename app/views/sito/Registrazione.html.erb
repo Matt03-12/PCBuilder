@@ -35,7 +35,7 @@
     <input type="email" placeholder="Enter Email" id="email" name="email">
     <p>Password</p>
     <input type="password" placeholder="Enter Password" id="pass" name="pass">
-    <input type="submit"  name="log" id="log" value="Login">
+    <input type="submit"  name="reg" id="log" value="Sign in">
     <br>
     <a href="/sito/Login"  style="font-family: 'Work Sans', sans-serif; color:#36B7E8FF; font-weight: 300; ">Log in</a>
   </form>
@@ -55,7 +55,7 @@
   $email=$email.first
   $reg=$reg.first
 
-    if $reg=="Reg"
+    if $reg=="Sign in"
 
       require 'sqlite3'
       db = SQLite3::Database.open('Data.db')

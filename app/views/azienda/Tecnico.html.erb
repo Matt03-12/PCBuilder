@@ -4,25 +4,115 @@
 </head>
 <body style="background-color: #B9B9B9;">
 <center>
- <br>
-  <fieldset style="width:40%;">
+  <br>
+  <br>
+  <br>
+  <br>
+  <%  $b= request.original_url
+      require 'cgi'
+      $url = CGI.parse($b)
 
-    <%
+      $nome=$url["http://127.0.0.1:3000/azienda/Tecnico?name"]
+      $nome=$nome.first
+      if $nome.blank?
+  %>
+  <fieldset style="width:70%;">
+  <form action="/azienda/Tecnico" method="GET">
+    <p>Username</p>
+    <input type="text" placeholder="Enter Username" id="name" name="name">
+    <p>Password</p>
+    <input type="text" placeholder="Enter Password">
+    <br>
+    <input type="submit"  name="log" id="log" value="Login">
+  </form>
+    </fieldset>
+    <%  end %>
+  <%
+      if !$nome.blank?
+  %>
+  <fieldset style="width:70%;">
+
+    <legend><b>Ordini</b></legend>
+    <br>
+    <table width='90%' border='1px'>
+      <td>Nome acquirente</td>
+      <td>Scheda video</td>
+      <td>Processore</td>
+      <td>Scheda madre</td>
+      <td>Ram</td>
+      <td>Hdd</td>
+      <td>SSD</td>
+      <td>Pc creato</td>
+      <td>Modifica</td>
+      <% require 'sqlite3'
+         db = SQLite3::Database.open('Data.db')
+         db.results_as_hash = true
+         $data = db.execute("SELECT * FROM Ordini ORDER BY  ID ASC; ") %>
+      <%  (0..$data.length-1).each do |a| %>
+
+        <tr>
+          <td style="text-align: center"><%= $data[a]["Nome"] -%></td>
+          <td style="text-align: center"><%= $data[a]["Schedavideo"] -%></td>
+          <td style="text-align: center"><%= $data[a]["Processore"] -%></td>
+          <td style="text-align: center"><%= $data[a]["Schedamadre"] -%></td>
+          <td style="text-align: center"><%= $data[a]["Ram"] -%></td>
+          <td style="text-align: center"><%= $data[a]["Hdd"] -%></td>
+          <td style="text-align: center"><%= $data[a]["SSD"] -%></td>
+          <td style="text-align: center">
+            <form action="/azienda/Tecnico" method="GET">
+              <input type="hidden" name="name" value="<%= $nome -%>" >
+              <input type="hidden" name="acname"value="<%= $data[a]["Nome"] -%>" >
+            <input type="hidden" name="Id" value="<%= $data[a]["Id"] -%>" >
+            <button type="submit" name="button" style=" background-color: #1A5635; color: #FFFFFF; font-size: 17px " value="log">Il pc è stato costruito</button>
+              </form>
+          </td>
+          <td style="text-align: center">
+          <form action="/azienda/tecmod" method="GET">
+            <input type="hidden" name="name"value="<%= $nome -%>" >
+            <input type="hidden" name="Id"value="<%= $data[a]["Id"] -%>" >
+            <button type="submit" style=" background-color: #1A5635; color: #FFFFFF; font-size: 17px ">Fai modifiche</button>
+          </form>
+          </td>
+        </tr>
+
+      <% end %>
+      <%
+          $b= request.original_url
+          require 'cgi'
+          $url = CGI.parse($b)
+
+          $nome=$url["http://127.0.0.1:3000/azienda/Tecnico?name"]
+          $name=$url["acname"]
+          $id=$url["id"]
+          $but=$url["button"]
+          $nome=$nome.first
+          $name=$name.first
+          $id=$id.first
+          $but=$but.first
+
+
+
+          if $but=="log"
+        require 'sqlite3'
+         db = SQLite3::Database.open('Data.db')
+         db.results_as_hash = true
+         $data = db.execute("INSERT INTO Contratto (Tecnico, Aquirente, Stato, IDord)
+VALUES ('#$nome', '#$name', 'Pc costruito', '#$id')")
+      end
+      %>
+
+    </table>
+    <br>
+    <br>
+    <br>
 
 
 
 
 
-
-    %>
-
-  </table>
-
-
-
-    ?>
   </fieldset>
   <br>
-  </center>
+</center>
+   <% end %>
 </body>
 </html>

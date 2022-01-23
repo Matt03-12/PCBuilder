@@ -57,7 +57,7 @@
       <% require 'sqlite3'
       db = SQLite3::Database.open('Data.db')
       db.results_as_hash = true
-      $data = db.execute("SELECT * FROM Componenti WHERE Tipo='Schedavideo'; ") %>
+      $data = db.execute("SELECT * FROM Componenti WHERE Tipo='Scheda video'; ") %>
       <%  (0..$data.length-1).each do |a| %>
         <option value="<%= $data[a]["Nome"] -%>"><%= $data[a]["Nome"] -%></option>
         </tr>
@@ -117,7 +117,7 @@
       <% require 'sqlite3'
          db = SQLite3::Database.open('Data.db')
          db.results_as_hash = true
-         $data = db.execute("SELECT * FROM Componenti WHERE Tipo='Schedamadre'; ") %>
+         $data = db.execute("SELECT * FROM Componenti WHERE Tipo='Scheda madre'; ") %>
       <%  (0..$data.length-1).each do |a| %>
         <option value="<%= $data[a]["Nome"] -%>"><%= $data[a]["Nome"] -%></option>
         </tr>
